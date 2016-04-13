@@ -1,0 +1,2 @@
+- name: Create aegir user
+  user: name=aegir uid=150 shell=/bin/bash home=/var/aegir groups=apache createhome=yes comment=Aegir User

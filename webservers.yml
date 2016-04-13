@@ -1,0 +1,4 @@
+- host: web
+  roles:
+    - common
+    - web
