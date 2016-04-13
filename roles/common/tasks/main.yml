@@ -1,2 +1,4 @@
+---
+# file: roles/common/tasks/main.yml
 - name: Create aegir user
-  user: name=aegir uid=150 shell=/bin/bash home=/var/aegir groups=apache createhome=yes comment=Aegir User
+  user: name={{ aegir_user }} uid={{ aegir_uid }} shell=/bin/bash home={{ aegir_home }} groups=apache createhome=yes comment=Aegir User
