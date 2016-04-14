@@ -1,6 +1,10 @@
 ---
 # file: dbserver.yml
 - hosts: db
+  vars_prompt:
+    - name: mysql_root_pass
+      prompt: "Please enter the root password to set for MySQL"
+      private: yes
   roles:
     - common
     - db

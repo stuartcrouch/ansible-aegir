@@ -1,0 +1,11 @@
+- hosts: hostmaster
+  tasks:
+  - name: Install drush
+    yum: name=php-drush-drush.noarch state=present
+- hosts: hostmaster
+  vars_prompt:
+    - name: aegir_mysql_root_pass
+      prompt: "Please enter the root password for MySQL for hostmaster install"
+      private: yes
+  roles:
+    - hostmaster

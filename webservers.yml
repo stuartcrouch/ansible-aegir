@@ -1,4 +1,8 @@
-- host: web
+- hosts: web
+  vars_prompt:
+    - name: aegir_fqdn
+      prompt: "Please enter the FQDN where the aegir hostmaster will be available"
+      private: no
   roles:
     - common
     - web

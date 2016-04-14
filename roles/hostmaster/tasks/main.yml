@@ -1,0 +1,20 @@
+---
+# File: roles/hostmaster/tasks/main.yml
+- name: Download hostmaster
+  command: /bin/drush -y dl --destination=/var/aegir/.drush provision-7.x-3.0
+  become: yes
+  become_user: aegir
+- name: Cache clear
+  command: /bin/drush cache-clear drush
+  become: yes
+  become_user: aegir
+- name: Create symlink for apache config
+  file: path=/etc/httpd/conf.d/aegir.conf src=/var/aegir/config/apache.conf state=link
+- name: Create sudoers config
+  copy: dest=/etc/sudoers.d/aegir src=aegir_sudoers mode=0400
+- name: Create apachectl symlink
+  file: path=/sbin/apache2ctl src=/sbin/apachectl state=link
+- name: Run hostmaster-install
+  command: /bin/drush -y hostmaster-install {{ ansible_fqdn }} --aegir_db_pass {{ aegir_mysql_root_pass }}
+  become: yes
+  become_user: aegir
