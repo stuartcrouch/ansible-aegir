@@ -18,3 +18,5 @@
   command: /bin/drush -y hostmaster-install --aegir_db_pass={{ aegir_mysql_root_pass }} {{ ansible_fqdn }}
   become: yes
   become_user: aegir
+  register: hostmasterinstall
+- debug: var=hostmasterinstall.stdout_lines

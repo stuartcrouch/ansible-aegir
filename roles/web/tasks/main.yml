@@ -6,6 +6,8 @@
   service: name=httpd enabled=yes
 - name: Modify apache user
   user: name=apache groups=aegir
+- name: Modify aegir user
+  user: name=aegir groups=apache
 - name: Install required packages
   yum: name={{ item }} state=present
   with_items:
