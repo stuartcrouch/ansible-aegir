@@ -9,12 +9,12 @@
   become: yes
   become_user: aegir
 - name: Create symlink for apache config
-  file: path=/etc/httpd/conf.d/aegir.conf src=/var/aegir/config/apache.conf state=link
+  file: path=/etc/httpd/conf.d/aegir.conf src=/var/aegir/config/apache.conf state=link force=yes
 - name: Create sudoers config
   copy: dest=/etc/sudoers.d/aegir src=aegir_sudoers mode=0400
 #- name: Create apachectl symlink
 #  file: path=/sbin/apache2ctl src=/sbin/apachectl state=link
 - name: Run hostmaster-install
-  command: /bin/drush -y hostmaster-install {{ ansible_fqdn }} --aegir_db_pass {{ aegir_mysql_root_pass }}
+  command: /bin/drush -y hostmaster-install --aegir_db_pass={{ aegir_mysql_root_pass }} {{ ansible_fqdn }}
   become: yes
   become_user: aegir

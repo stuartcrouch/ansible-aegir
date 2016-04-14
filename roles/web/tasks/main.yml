@@ -2,6 +2,8 @@
 # file: roles/common/tasks/main.yml
 - name: Install apache
   yum: name=httpd state=present
+- name: Enable and start apache
+  service: name=httpd enabled=yes
 - name: Modify apache user
   user: name=apache groups=aegir
 - name: Install required packages
