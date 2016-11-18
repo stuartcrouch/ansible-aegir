@@ -12,6 +12,8 @@
   file: path=/etc/httpd/conf.d/aegir.conf src=/var/aegir/config/apache.conf state=link force=yes
 - name: Create sudoers config
   copy: dest=/etc/sudoers.d/aegir src=aegir_sudoers mode=0400
+- name: Create public key apache config
+  copy: dest=/var/aegir/config/server_master/apache/pre.d/public_key.conf src=public_key.conf
 #- name: Create apachectl symlink
 #  file: path=/sbin/apache2ctl src=/sbin/apachectl state=link
 - name: Run hostmaster-install
@@ -19,4 +21,10 @@
   become: yes
   become_user: aegir
   register: hostmasterinstall
+- name: create ssh keys
+  command: ssh-keygen -f /var/aegir/.ssh/id_rsa -t rsa -N ''
+- name: create public key area
+  file: path=/var/aegir/public_key state=directory
+- name: copy public key to public key area
+  copy: src=/var/aegir/.ssh/id_rsa.pub dest=/var/aegir/public_key/id_rsa.pub
 - debug: var=hostmasterinstall.stdout_lines
