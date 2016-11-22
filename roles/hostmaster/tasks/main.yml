@@ -12,15 +12,15 @@
   file: path=/etc/httpd/conf.d/aegir.conf src=/var/aegir/config/apache.conf state=link force=yes
 - name: Create sudoers config
   copy: dest=/etc/sudoers.d/aegir src=aegir_sudoers mode=0400
-#- name: Create apachectl symlink
-#  file: path=/sbin/apache2ctl src=/sbin/apachectl state=link
 - name: Run hostmaster-install
   command: /bin/drush -y hostmaster-install --aegir_db_pass={{ aegir_mysql_root_pass }} {{ ansible_fqdn }}
   become: yes
   become_user: aegir
   register: hostmasterinstall
 - name: create ssh keys
-  command: ssh-keygen -f /var/aegir/.ssh/id_rsa -t rsa -N ''
+  command: echo -e 'y\n' | ssh-keygen -f /var/aegir/.ssh/id_rsa -t rsa -N ''
+  become: yes
+  become_user: aegir
 - name: create public key area
   file: path=/var/aegir/public_key state=directory
 - name: copy public key to public key area
