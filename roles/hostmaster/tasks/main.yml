@@ -1,7 +1,7 @@
 ---
 # File: roles/hostmaster/tasks/main.yml
 - name: Download hostmaster
-  command: /bin/drush -y dl --destination=/var/aegir/.drush provision-7.x-3.0
+  command: /bin/drush -y dl --destination=/var/aegir/.drush provision-7.x
   become: yes
   become_user: aegir
 - name: Cache clear
